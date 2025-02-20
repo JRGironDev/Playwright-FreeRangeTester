@@ -80,8 +80,28 @@ test.describe('Automation Sandbox', () => {
             await page.getByRole('button', { name: 'Día de la semana' }).click();
             await page.getByRole('link', { name: 'Martes' }).click();
         })
-        
+    })
 
+    test('Puedo subir archivos', async ({ page }) => {
+        await test.step('Dado que navego al sandbox de automatización', async () => {
+            await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+        })
+
+        await test.step('Cuando subio un archivo', async () => {
+            const inputFile = page.getByRole('textbox', { name: 'Archivo' });
+            await inputFile.setInputFiles('tests/files/file.txt');
+            //await inputFile.setInputFiles(['tests/files/file.txt', 'tests/files/file2.txt']);
+        })
+    })
+
+    test('Puedo hacer un Drag and Drop', async ({ page }) => {
+        await test.step('Dado que navego al sandbox de automatización', async () => {
+            await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+        })
+
+        await test.step('Cuando hago un Drag and Drop', async () => {
+            await page.getByTestId('DragFrom').dragTo(page.getByTestId('DropTo'));
+        })
     })
 
 })
