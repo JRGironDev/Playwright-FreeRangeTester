@@ -41,9 +41,7 @@ test.describe('Automation Sandbox', () => {
             const checkBox = page.getByRole('checkbox', { name: 'Pasta 🍝' });
             await checkBox.check();
 
-            expect(await checkBox.isChecked()).toBe(true);
-
-            await checkBox.uncheck();
+            await expect(checkBox, 'Checkbox no estaba seleccionado').toBeChecked();
         });
     })
     
