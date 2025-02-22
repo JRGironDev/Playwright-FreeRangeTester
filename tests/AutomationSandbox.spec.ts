@@ -15,6 +15,8 @@ test.describe('Automation Sandbox', () => {
             //await botonIDDinamico.click({ button: 'right' });
             //await botonIDDinamico.click({ modifiers: ['Shift'] });
             //await botonIDDinamico.hover();
+            await expect(page.getByText('OMG, aparezco después de 3')).toBeVisible();
+
         });
     })
 
