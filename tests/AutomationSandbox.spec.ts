@@ -67,15 +67,29 @@ test.describe('Automation Sandbox', () => {
         })
 
         await test.step('Cuando selecciono opciones de select', async () => {
-            const dropdown = page.getByLabel('Dropdown');
-            await dropdown.selectOption({ value: 'Fútbol' });
+            const deportes = ['Fútbol', 'Tennis', 'Basketball'];
+
+            for (let opcion of deportes) {
+                const elemento = await page.$(`select#formBasicSelect > option:is(:text("${opcion}"))`)
+
+                if (elemento) {
+                    console.log(`Elemento encontrado: ${opcion}`);
+                }
+                else {
+                    throw new Error(`Elemento no encontrado: ${opcion}`);
+                }
+            }
+
+            const dropdownDeportes = page.getByLabel('Dropdown');
+            await dropdownDeportes.selectOption( 'Fútbol' );
+            await expect(dropdownDeportes, 'Debe estar seleccionado el deporte Fútbol').toHaveValue('Fútbol');
         });
     })
 
     test('Puedo seleccionar opciones de select con botones', async ({ page }) => {
         await test.step('Dado que navego al sandbox de automatización', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
-        })
+        })  
 
         await test.step('Selecciono un día de la semana', async () => {
             await page.getByRole('button', { name: 'Día de la semana' }).click();
