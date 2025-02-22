@@ -27,10 +27,11 @@ test.describe('Automation Sandbox', () => {
 
         await test.step('Cuando lleno el campo de texto Un aburrido texto', async () => {
             const campoTexto = page.getByRole('textbox', { name: 'Un aburrido texto' });
+            await expect(campoTexto, 'Campo de texto no permite edición').toBeEditable();
             await campoTexto.fill(textoAEscrbir);
-            //await campoTexto.press('Enter');
-
-            //expect(await campoTexto.inputValue()).toBe(textoAEscrbir);
+            await expect(campoTexto, `No tiene el texto ${textoAEscrbir}`).toHaveValue(textoAEscrbir);
+            await campoTexto.clear();
+            await expect(campoTexto, 'Campo de texto debería estar vacío').toHaveValue('');
         });
     })
 
