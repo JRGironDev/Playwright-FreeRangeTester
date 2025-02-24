@@ -110,7 +110,7 @@ test.describe('Automation Sandbox', () => {
     })
 
     test('Puedo hacer un Drag and Drop', async ({ page }) => {
-        await test.step('Dado que navego al sandbox de automatización', async () => {
+        await test.step('Dado que navego al sandbox de automatizaciónde pruebas', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
         })
 
