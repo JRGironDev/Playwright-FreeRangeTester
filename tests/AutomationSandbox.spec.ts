@@ -136,6 +136,27 @@ test.describe('Automation Sandbox', () => {
         })
     })
 
+    test('Valido que todos los valores de la tabla dinámica cambian luego de un reload a la web', async ({ page }) => {
+        await test.step('Dado que navego al sandbox de automatización', async () => {
+            await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+        })
 
+        await test.step('Valido que los valores cambiaron al hacer un reload a la web', async () => {
+            const valoresTablaDinamica = await page.$$eval('h2:has-text("Tabla dinámica") + table tbody tr td', (elementos) => {
+                return elementos.map(elemento => elemento.textContent);
+            });
 
+            console.log(valoresTablaDinamica);
+
+            await page.reload();
+
+            const valoresTablaDinamicaReloada = await page.$$eval('h2:has-text("Tabla dinámica") + table tbody tr td', (elementos) => {
+                return elementos.map(elemento => elemento.textContent);
+            });
+
+            console.log(valoresTablaDinamicaReloada);
+
+            expect(valoresTablaDinamica).not.toEqual(valoresTablaDinamicaReloada);
+        })
+    })
 })
