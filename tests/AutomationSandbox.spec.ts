@@ -119,4 +119,23 @@ test.describe('Automation Sandbox', () => {
         })
     })
 
+    test('Valido la columna Nombres de la tabla estática', async ({ page }) => {
+        await test.step('Dado que navego al sandbox de automatización', async () => {
+            await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+        })
+
+        await test.step('Puedo validar los elementos para la columna Nombre de la tabla estática', async () => {
+            const valoresColumnaNombres = await page.$$eval('h2:has-text("Tabla estática") + table tbody tr td:nth-child(2)', (elementos) => {
+                return elementos.map(elemento => elemento.textContent);
+            });
+
+            const nombresEsperados = ['Messi', 'Ronaldo', 'Mbappe'];
+
+            console.log(valoresColumnaNombres);
+            expect(valoresColumnaNombres).toEqual(nombresEsperados);
+        })
+    })
+
+
+
 })
