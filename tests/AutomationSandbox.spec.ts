@@ -172,6 +172,20 @@ test.describe('Automation Sandbox', () => {
             await expect.soft(page.getByText('Helado 🍧'), 'No se encontró el elemento Helados 🍧').toBeVisible();
             await expect.soft(page.getByText('Torta 🍰')).toBeVisible();
         })
+    })
 
+    test('Validando dentro de un popup', async ({ page }) => {
+        await test.step('Dado que navego al sandbox', async () => {
+            await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+        })
+
+        await test.step('Cuando hago clic en el botón popup', async () => {
+            await page.getByRole('button', { name: 'Mostrar popup' }).click();
+        })
+
+        await test.step('Puedo validar un elemento dentro del popup', async () => {
+            await expect(page.getByText('¿Viste? ¡Apareció un Pop-up!')).toHaveText('¿Viste? ¡Apareció un Pop-up!');
+            await page.getByRole('button', { name: 'Cerrar' }).click();
+        })
     })
 })
