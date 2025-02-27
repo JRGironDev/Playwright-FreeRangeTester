@@ -166,10 +166,10 @@ test.describe('Automation Sandbox', () => {
         })
 
         await test.step('Valido que todos los elementos de los checkboxese estén visibles', async () => {
-            await expect.soft(page.getByText('Pizzau 🍕'), 'No se encontró el elemento Pizzau 🍕').toBeVisible();
+            await expect.soft(page.getByText('Pizza 🍕'), 'No se encontró el elemento Pizzau 🍕').toBeVisible();
             await expect.soft(page.getByText('Hamburguesa 🍔')).toBeVisible();
             await expect.soft(page.getByText('Pasta 🍝')).toBeVisible();
-            await expect.soft(page.getByText('Helados 🍧'), 'No se encontró el elemento Helados 🍧').toBeVisible();
+            await expect.soft(page.getByText('Helado 🍧'), 'No se encontró el elemento Helados 🍧').toBeVisible();
             await expect.soft(page.getByText('Torta 🍰')).toBeVisible();
         })
 
