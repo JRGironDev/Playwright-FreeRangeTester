@@ -159,4 +159,19 @@ test.describe('Automation Sandbox', () => {
             expect(valoresTablaDinamica).not.toEqual(valoresTablaDinamicaReloada);
         })
     })
+
+    test('Ejemplo de Soft Assertion', async ({ page }) => {
+        await test.step('Dado que navego al sandbox de automatización', async () => {
+            await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
+        })
+
+        await test.step('Valido que todos los elementos de los checkboxese estén visibles', async () => {
+            await expect.soft(page.getByText('Pizzau 🍕'), 'No se encontró el elemento Pizzau 🍕').toBeVisible();
+            await expect.soft(page.getByText('Hamburguesa 🍔')).toBeVisible();
+            await expect.soft(page.getByText('Pasta 🍝')).toBeVisible();
+            await expect.soft(page.getByText('Helados 🍧'), 'No se encontró el elemento Helados 🍧').toBeVisible();
+            await expect.soft(page.getByText('Torta 🍰')).toBeVisible();
+        })
+
+    })
 })
