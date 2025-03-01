@@ -21,11 +21,12 @@ test.describe('Automation Sandbox', () => {
         });
     })
 
-    test.only('Lleno el campo de texto en Automation Sandbox', async ({ page }) => {
+    test('Lleno el campo de texto en Automation Sandbox', async ({ page }) => {
         test.info().annotations.push({
             type: 'Story DG1212 ',
             description: 'Este test es para demostrar el uso de annotations en Playwright',
         })
+
         await test.step('Dado que navego al sandbox de automatización', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
         })
@@ -133,7 +134,7 @@ test.describe('Automation Sandbox', () => {
         })
     })
 
-    test('Valido la columna Nombres de la tabla estática', async ({ page }) => {
+    test.only('Valido la columna Nombres de la tabla estática', async ({ page }) => {
         await test.step('Dado que navego al sandbox de automatización', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
         })
@@ -144,6 +145,11 @@ test.describe('Automation Sandbox', () => {
             });
 
             const nombresEsperados = ['Messi', 'Ronaldo', 'Mbappe'];
+
+            await test.info().attach('screenshots', {
+                body: await page.screenshot(),
+                contentType: 'image/png',
+            });
 
             console.log(valoresColumnaNombres);
             expect(valoresColumnaNombres).toEqual(nombresEsperados);
