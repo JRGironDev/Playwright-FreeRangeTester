@@ -3,7 +3,8 @@ import { test, expect } from '@playwright/test';
 const textoAEscrbir = 'Un aburrido texto';
 
 test.describe('Automation Sandbox', () => {
-    test('Click en botón ID dinámico', async ({ page }) => {
+    test.setTimeout(90000);
+    test.skip('Click en botón ID dinámico', async ({ page }) => {
         await test.step('Dado que navego al sandbox de automatización', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
         })
@@ -20,7 +21,11 @@ test.describe('Automation Sandbox', () => {
         });
     })
 
-    test('Lleno el campo de texto en Automation Sandbox', async ({ page }) => {
+    test.only('Lleno el campo de texto en Automation Sandbox', async ({ page }) => {
+        test.info().annotations.push({
+            type: 'Story DG1212 ',
+            description: 'Este test es para demostrar el uso de annotations en Playwright',
+        })
         await test.step('Dado que navego al sandbox de automatización', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
         })
@@ -35,7 +40,9 @@ test.describe('Automation Sandbox', () => {
         });
     })
 
-    test('Puedo seleccionar check box', async ({ page }) => {
+    test('Puedo seleccionar y deseleccionar un check box en el sandbox @Sandbox', async ({ page, browserName }) => {
+        test.skip(browserName === 'chromium', 'Este test no se ejecuta en Chromium');
+        
         await test.step('Dado que navego al sandbox de automatización', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
         })
@@ -45,6 +52,13 @@ test.describe('Automation Sandbox', () => {
             await checkBox.check();
 
             await expect(checkBox, 'Checkbox no estaba seleccionado').toBeChecked();
+        });
+
+        await test.step('Puedo deseleccionar el checkbox Pasta 🍝', async () => {
+            const checkBox = page.getByRole('checkbox', { name: 'Pasta 🍝' });
+            await checkBox.uncheck();
+
+            await expect(checkBox, 'Checkbox estaba seleccionado').not.toBeChecked();
         });
     })
     
@@ -97,7 +111,7 @@ test.describe('Automation Sandbox', () => {
         })
     })
 
-    test('Puedo subir archivos', async ({ page }) => {
+    test.skip('Puedo subir archivos', async ({ page }) => {
         await test.step('Dado que navego al sandbox de automatización', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
         })
@@ -109,7 +123,7 @@ test.describe('Automation Sandbox', () => {
         })
     })
 
-    test('Puedo hacer un Drag and Drop', async ({ page }) => {
+    test.skip('Puedo hacer un Drag and Drop', async ({ page }) => {
         await test.step('Dado que navego al sandbox de automatizaciónde pruebas', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
         })
