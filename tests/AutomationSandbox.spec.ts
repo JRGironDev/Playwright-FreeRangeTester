@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
+import { SandboxPage } from './Pages/SandboxPage';
 
 const textoAEscrbir = 'Un aburrido texto';
 
 test.describe('Automation Sandbox', () => {
-    test.setTimeout(90000);
+    test.setTimeout(1000);
     test.skip('Click en botón ID dinámico', async ({ page }) => {
         await test.step('Dado que navego al sandbox de automatización', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
@@ -42,17 +43,20 @@ test.describe('Automation Sandbox', () => {
     })
 
     test('Puedo seleccionar y deseleccionar un check box en el sandbox @Sandbox', async ({ page, browserName }) => {
-        test.skip(browserName === 'chromium', 'Este test no se ejecuta en Chromium');
+        //test.skip(browserName === 'chromium', 'Este test no se ejecuta en Chromium');
         
         await test.step('Dado que navego al sandbox de automatización', async () => {
             await page.goto('https://thefreerangetester.github.io/sandbox-automation-testing/');
         })
 
         await test.step('Cuando selecciono check box', async () => {
-            const checkBox = page.getByRole('checkbox', { name: 'Pasta 🍝' });
-            await checkBox.check();
+            //const checkBox = page.getByRole('checkbox', { name: 'Pasta 🍝' });
+            //await checkBox.check();
+            const sandBox = new SandboxPage(page);
 
-            await expect(checkBox, 'Checkbox no estaba seleccionado').toBeChecked();
+            await sandBox.checkPasta();
+
+            await expect(sandBox.pastaCheckbox, 'Checkbox no estaba seleccionado').toBeChecked();
         });
 
         await test.step('Puedo deseleccionar el checkbox Pasta 🍝', async () => {
