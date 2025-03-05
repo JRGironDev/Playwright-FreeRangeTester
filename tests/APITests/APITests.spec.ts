@@ -5,7 +5,7 @@ const USER = 'JRGironDev';
 
 test('Se puede crear un Issue en el repositrio de GitHub ', async ({ request }) => {
     const data = {
-        title: 'Issue creado desde Playwright',
+        title: 'Issue creado desde Playwright con la API de GitHub',
         body: 'Este issue fue creado desde Playwright',
     };
 
@@ -22,7 +22,7 @@ test('Se puede crear un Issue en el repositrio de GitHub ', async ({ request }) 
     const issues = await request.get(`https://api.github.com/repos/${USER}/${REPO}/issues`);
     expect(issues.status()).toBe(200);
     expect(await issues.json()).toContainEqual(expect.objectContaining({
-        title: 'Issue creado desde Playwright',
+        title: 'Issue creado desde Playwright con la API de GitHub',
         body: 'Este issue fue creado desde Playwright',
     }));
 }); 
