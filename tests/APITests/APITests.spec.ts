@@ -1,7 +1,24 @@
 import { test, expect } from '@playwright/test';
 
-const REPO = 'DevJobs';
+const REPO = 'Repo-Playwright';
 const USER = 'JRGironDev';
+
+test.beforeAll(async ({ request }) => {
+    const headers = {
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': `token ${process.env.API_TOKEN}`,
+    };
+
+    const response = await request.post('https://api.github.com/user/repos', {
+        headers,
+        data: {
+            name: REPO
+        }
+    });
+
+    expect(response.status()).toBe(201);
+})
+
 
 test('Se puede crear un Issue en el repositrio de GitHub ', async ({ request }) => {
     const data = {
@@ -26,3 +43,15 @@ test('Se puede crear un Issue en el repositrio de GitHub ', async ({ request }) 
         body: 'Este issue fue creado desde Playwright',
     }));
 }); 
+
+test.afterAll(async ({ request }) => {
+    const headers = {
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': `token ${process.env.API_TOKEN}`,
+    };
+
+    const response = await request.delete(`https://api.github.com/repos/${USER}/${REPO}`,
+        { headers }
+    );
+    expect(response.ok()).toBeTruthy();
+})
