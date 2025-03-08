@@ -12,3 +12,20 @@ test('Hace un mock de una fruta que no viene de la API real', async ({ page }) =
     // validamos que Melocotón está disponible
     await expect(page.getByText('Melocotón')).toBeVisible();
 });
+
+test('Obtengo la respuesta real y le agrego algo no tan real', async ({ page }) => {
+
+    //Obtenemos la respuesta y le agregamos un extra
+    await page.route('**/api/v1/fruits', async route => {
+        const response = await route.fetch();
+        const json = await response.json();
+        json.push({ name: 'Melocotón', id: 26 });
+        await route.fulfill({ response, json });
+    });
+    
+    // vamos a la página
+    await page.goto('https://demo.playwright.dev/api-mocking');
+
+    // validamos que Melocotón está disponible
+    await expect(page.getByText('Melocotón', { exact: true })).toBeVisible();
+});
