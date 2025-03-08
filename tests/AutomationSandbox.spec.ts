@@ -57,13 +57,21 @@ test.describe('Automation Sandbox', () => {
             await sandBox.checkPasta();
 
             await expect(sandBox.pastaCheckbox, 'Checkbox no estaba seleccionado').toBeChecked();
+
+            //await expect(checkBox, 'Checkbox no estaba seleccionado').toBeChecked();
         });
 
         await test.step('Puedo deseleccionar el checkbox Pasta 🍝', async () => {
-            const checkBox = page.getByRole('checkbox', { name: 'Pasta 🍝' });
-            await checkBox.uncheck();
+            //const checkBox = page.getByRole('checkbox', { name: 'Pasta 🍝' });
+            //await checkBox.uncheck();
 
-            await expect(checkBox, 'Checkbox estaba seleccionado').not.toBeChecked();
+            const sandBox = new SandboxPage(page);
+
+            await sandBox.uncheckPasta();
+
+            await expect(sandBox.pastaCheckbox, 'Checkbox estaba seleccionado').not.toBeChecked();
+
+            //await expect(checkBox, 'Checkbox estaba seleccionado').not.toBeChecked();
         });
     })
     

@@ -13,5 +13,9 @@ export class SandboxPage{
     async checkPasta(){
         await this.pastaCheckbox.check();
     }
+
+    async uncheckPasta(){
+        await this.pastaCheckbox.uncheck();
+    }
 }
 
